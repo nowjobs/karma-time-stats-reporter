@@ -221,6 +221,11 @@ const TimeStatsReporter = function(baseReporterDecorator, config) {
 
   const reporterOptions = getReporterOptions({ config });
 
+  const hasTrailingReporters = config.reporters.slice(-1).pop() !== 'time-stats';
+  if (hasTrailingReporters) {
+    this.writeCommonMsg = () => {};
+  }
+
   let specs = [];
 
   this.onSpecComplete = function(browser, result) {
